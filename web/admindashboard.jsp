@@ -2,7 +2,10 @@
     <body>
         <h3>Admin-Dashboard</h3>
         <hr>
-            //Links For Admin Will Appear
+        <pre>
+        <a href="facultyaccount.jsp">Create-New-Faculty-Account</a>
+        <a href="index.jsp">Logout</a>
+        </pre>
         <hr>
     </body>
 </html>

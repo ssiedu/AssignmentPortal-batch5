@@ -16,6 +16,14 @@
             <param-value>ssiindore</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>FacultyAccountServlet</servlet-name>
+        <servlet-class>FacultyAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FacultyAccountUpdate</servlet-name>
+        <servlet-class>FacultyAccountUpdate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>UserAuthentication</servlet-name>
         <url-pattern>/UserAuthentication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacultyAccountServlet</servlet-name>
+        <url-pattern>/FacultyAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FacultyAccountUpdate</servlet-name>
+        <url-pattern>/FacultyAccountUpdate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

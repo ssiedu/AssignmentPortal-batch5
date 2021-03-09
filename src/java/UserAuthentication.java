@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UserAuthentication extends HttpServlet {
 
-     private PreparedStatement ps;
+    private PreparedStatement ps,ps1;
     private Connection con;
     
     public void init() {
@@ -24,6 +24,8 @@ public class UserAuthentication extends HttpServlet {
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
         String sql = "SELECT * FROM student WHERE userid=? AND password=?";
         ps = con.prepareStatement(sql);
+        ps1= con.prepareStatement("SELECT * FROM faculty where userid=? AND password=?");
+        
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -60,8 +62,26 @@ public class UserAuthentication extends HttpServlet {
                 out.println("Invalid Admin Credentials");
             }
         } else if (usertype.equals("faculty")) {
-                response.sendRedirect("facultydashboard.jsp");
-            //out.println("Welcome Faculty...");
+              try{
+                ps1.setString(1, userid);
+                ps1.setString(2, password);
+                ResultSet rs=ps1.executeQuery();
+                boolean found=rs.next();    //true-rs-contains-1-row(credentials are correct,false-rs-empty-credentials are wrong
+                if(found){
+                    String status=rs.getString("status");
+                    if(status.equals("disabled")){
+                        response.sendRedirect("facultyprofileupdate.jsp");
+                    }else{
+                        response.sendRedirect("facultydashboard.jsp");
+                    }
+                }else{
+                    out.println("Invalid Faculty Account");
+                }
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
         } else if (usertype.equals("student")) {
             //we will match the id/pwd coming with request to credentials stored in db.
             try{
@@ -70,9 +90,9 @@ public class UserAuthentication extends HttpServlet {
                 ResultSet rs=ps.executeQuery();
                 boolean found=rs.next();    //true-rs-contains-1-row(credentials are correct,false-rs-empty-credentials are wrong
                 if(found){
-                    RequestDispatcher rd=request.getRequestDispatcher("studentdashboard.jsp");
-                    rd.forward(request, response);
-                    //response.sendRedirect("studentdashboard.jsp");
+                    //RequestDispatcher rd=request.getRequestDispatcher("studentdashboard.jsp");
+                    //rd.forward(request, response);
+                    response.sendRedirect("studentdashboard.jsp");
                     //out.println("Welcome Student");
                 }else{
                     out.println("Invalid Student Account");

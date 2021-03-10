@@ -3,13 +3,10 @@
         <h3>Faculty-Dashboard</h3>
         <hr>
         <pre>
-            //Links For Faculty Will Appear
-            => Upload Assignment
-            => Check Assignment
-            => Modify Assignment
-            => ..
-            => ..
-            => Logout
+            <a href="queupload.jsp">Upload-Questions</a>
+            <a href="">View-Questions</a>
+            <a href="index.jsp">Logout</a>
+
         </pre>
         <hr>
     </body>

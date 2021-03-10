@@ -71,8 +71,8 @@ public class RegistrationServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         } catch (Exception e) {
-            //e.printStackTrace();
-            out.println(e);
+            e.printStackTrace();
+            //out.println(e);
         }
 
     }

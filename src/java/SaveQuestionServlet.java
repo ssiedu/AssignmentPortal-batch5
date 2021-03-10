@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class FacultyAccountUpdate extends HttpServlet {
+public class SaveQuestionServlet extends HttpServlet {
 
     private PreparedStatement ps;
     private Connection con;
@@ -18,10 +18,8 @@ public class FacultyAccountUpdate extends HttpServlet {
     public void init() {
         try{
         Class.forName("com.mysql.jdbc.Driver");
-        System.out.println("Driver Loaded...............");
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
-        System.out.println("Connection Established..........");
-        String sql = "UPDATE FACULTY SET password=?, address=?, email=?, mobile=?, status='enabled' WHERE userid=?";
+        String sql = "INSERT INTO quebank(question,sdate,fid,subject) VALUES(?,?,?,?)";
         ps = con.prepareStatement(sql);
         }catch(Exception e){
             e.printStackTrace();
@@ -43,30 +41,33 @@ public class FacultyAccountUpdate extends HttpServlet {
         PrintWriter out = response.getWriter();
         //read-the-request
         //userid&password&name&address&email&mobile
-        String userid = request.getParameter("userid");
-        String password = request.getParameter("password");
-        String address = request.getParameter("address");
-        String email = request.getParameter("email");
-        String mobile = request.getParameter("mobile");
-        
+        String userid = request.getParameter("userid"); //3
+        String question = request.getParameter("question"); //1
+        String subject = request.getParameter("subject"); //4
+        //2nd parameter is date (current-date)
+        java.util.Date dt=new java.util.Date();
+        long val=dt.getTime();
+        java.sql.Date sqlDate=new java.sql.Date(val);//2
         
         //process-the-request
         try {
-            ps.setString(1, password);
-            ps.setString(2, address);
-            ps.setString(3, email);
-            ps.setString(4, mobile);
-            ps.setString(5, userid);
+            
+            ps.setString(1, question);
+            ps.setDate(2, sqlDate);
+            ps.setString(3, userid);
+            ps.setString(4, subject);
             ps.executeUpdate();
             //provide the response
             out.println("<html>");
             out.println("<body>");
             out.println("<hr>");
-            out.println("<h3>Profile Updated Successfully</h3>");
+            out.println("<h3>Question-Stored-Successfully</h3>");
             out.println("<hr>");
-            out.println("<h4><a href=index.jsp>Login-Now</a></h4>");
+            out.println("<h4><a href=queupload.jsp>Add-Another-Question</a></h4>");
+            out.println("<h4><a href=facultydashboard.jsp>Faculty-Dashboard</a></h4>");
             out.println("</body>");
             out.println("</html>");
+            
         } catch (Exception e) {
             //e.printStackTrace();
             out.println(e);

@@ -24,6 +24,10 @@
         <servlet-name>FacultyAccountUpdate</servlet-name>
         <servlet-class>FacultyAccountUpdate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SaveQuestionServlet</servlet-name>
+        <servlet-class>SaveQuestionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>FacultyAccountUpdate</servlet-name>
         <url-pattern>/FacultyAccountUpdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveQuestionServlet</servlet-name>
+        <url-pattern>/SaveQuestionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

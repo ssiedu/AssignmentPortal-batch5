@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SubjectListServlet extends HttpServlet {
+public class DisplayQueSubjectWise extends HttpServlet {
 
     PreparedStatement ps;
     Connection con;
@@ -20,7 +19,7 @@ public class SubjectListServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
-            String sql = "SELECT distinct subject FROM quebank order by subject";
+            String sql = "select code,question,sdate,name,subject from quebank,faculty where quebank.fid=faculty.userid and subject=?";
             ps = con.prepareStatement(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,30 +34,53 @@ public class SubjectListServlet extends HttpServlet {
             ex.printStackTrace();
         }
     }
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out=response.getWriter();
-        
-        out.println("<html>");
-        out.println("<body>");
-        out.println("<h3>Subject-List</h3>");
-        out.println("<hr>");
-        try{
-            ResultSet rs=ps.executeQuery();
-            while(rs.next()){
-                String s=rs.getString(1);
-                out.println("<a href=\"DisplayQueSubjectWise?sub="+s+"\">");
-                out.println(s);
-                out.println("</a>");
-                out.println("<br>");
-            }   
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        out.println("<hr>");
-        out.println("</body>");
-        out.println("</html>");
+            PrintWriter out=response.getWriter();
+            
+            String subject=request.getParameter("sub");
+
+            //we will fetch the questions-list for this subject from db and will show them in presentable manner
+            try{
+                ps.setString(1, subject);
+                ResultSet rs=ps.executeQuery();
+                out.println("<html>");
+                out.println("<body>");
+                out.println("<h3>Question-List-For-"+subject+"</h3>");
+                out.println("<hr>");
+                out.println("<table border=2>");
+                out.println("<tr>");
+                out.println("<th>Sno</th><th>Qno</th><th align=left>Que</th><th align=left>Date</th><th>Faculty</th>");
+                out.println("</tr>");
+                int sn=1;
+                while(rs.next()){
+                    String code=rs.getString("code");
+                    String que=rs.getString("question");
+                    String sdate=rs.getString("sdate");
+                    String faculty=rs.getString("name");
+                    
+                    out.println("<tr>");
+                    out.println("<td>"+sn+"</td>");
+                    out.println("<td>"+code+"</td>");
+                    out.println("<td>"+que+"</td>");
+                    out.println("<td>"+sdate+"</td>");
+                    out.println("<td>"+faculty+"</td>");
+                    out.println("</tr>");
+                    sn++;
+                }
+                out.println("</table>");
+                out.println("<hr>");
+                out.println("<a href=studentdashboard.jsp>Student-Dashboard</a><br>");
+                out.println("<a href=SubjectListServlet>Subject-Page</a><br>");
+                out.println("</body>");
+                out.println("</html>");
+            }catch(Exception e){
+                out.println(e);
+            }
+            
+            
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

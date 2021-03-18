@@ -6,9 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ public class UserAuthentication extends HttpServlet {
     public void init() {
         try{
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3307/ProjectData", "root", "root");
         String sql = "SELECT * FROM student WHERE userid=? AND password=?";
         ps = con.prepareStatement(sql);
         ps1= con.prepareStatement("SELECT * FROM faculty where userid=? AND password=?");
@@ -46,7 +46,8 @@ public class UserAuthentication extends HttpServlet {
         String userid = request.getParameter("userid");
         String password = request.getParameter("password");
         String usertype = request.getParameter("usertype");
-
+        String save=request.getParameter("save");
+        
         PrintWriter out = response.getWriter();
 
         if (usertype.equals("admin")) {
@@ -54,6 +55,22 @@ public class UserAuthentication extends HttpServlet {
             String validId = config.getInitParameter("admin-id");
             String validPw = config.getInitParameter("admin-password");
             if (userid.equals(validId) && password.equals(validPw)) {
+                if(save!=null){
+                    //user wish to save password
+                    //step-1 (create cookie object)
+                    Cookie c1=new Cookie("id",validId);
+                    Cookie c2=new Cookie("pw",validPw);
+                    //step-2 (we will set the age)
+                    c1.setMaxAge(60*60*24*30);
+                    c2.setMaxAge(60*60*24*30);
+                    //step-3 (add the cookies to response)
+                    response.addCookie(c1);
+                    response.addCookie(c2);
+                }
+                
+                
+                
+                
                 //send this request to admindashboard
                 response.sendRedirect("admindashboard.jsp");
                 

@@ -18,7 +18,7 @@ public class DisplayQueSubjectWise extends HttpServlet {
     public void init() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/ProjectData", "root", "root");
             String sql = "select code,question,sdate,name,subject from quebank,faculty where quebank.fid=faculty.userid and subject=?";
             ps = con.prepareStatement(sql);
         } catch (Exception e) {

@@ -19,7 +19,7 @@ public class SubjectListServlet extends HttpServlet {
     public void init() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/ProjectData", "root", "root");
             String sql = "SELECT distinct subject FROM quebank order by subject";
             ps = con.prepareStatement(sql);
         } catch (Exception e) {

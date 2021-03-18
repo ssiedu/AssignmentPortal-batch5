@@ -21,7 +21,7 @@ public class RegistrationServlet extends HttpServlet {
         try{
         Class.forName("com.mysql.jdbc.Driver");
         System.out.println("Driver Loaded...............");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjectData", "root", "root");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3307/ProjectData", "root", "root");
         System.out.println("Connection Established..........");
         String sql = "INSERT INTO student VALUES(?,?,?,?,?,?)";
         ps = con.prepareStatement(sql);

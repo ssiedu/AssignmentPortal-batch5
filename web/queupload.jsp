@@ -3,7 +3,6 @@
         <h3>Question-Upload-Page</h3>
         <form action="SaveQuestionServlet">     
             <pre>
-            userid      <input type="text" name="userid"/>
             question    <input type="text" name="question"/>
             subject     <select name="subject">
                             <option>java</option>

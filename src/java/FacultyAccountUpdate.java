@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class FacultyAccountUpdate extends HttpServlet {
 
@@ -43,7 +44,13 @@ public class FacultyAccountUpdate extends HttpServlet {
         PrintWriter out = response.getWriter();
         //read-the-request
         //userid&password&name&address&email&mobile
-        String userid = request.getParameter("userid");
+        //String userid = request.getParameter("userid");
+        //read the userid from session
+        
+        HttpSession session=request.getSession();
+        String userid=(String)session.getAttribute("uid");
+        
+        
         String password = request.getParameter("password");
         String address = request.getParameter("address");
         String email = request.getParameter("email");

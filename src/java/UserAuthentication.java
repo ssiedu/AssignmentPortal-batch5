@@ -12,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class UserAuthentication extends HttpServlet {
 
@@ -85,6 +86,12 @@ public class UserAuthentication extends HttpServlet {
                 ResultSet rs=ps1.executeQuery();
                 boolean found=rs.next();    //true-rs-contains-1-row(credentials are correct,false-rs-empty-credentials are wrong
                 if(found){
+                    //storing the userid to session (so that other servlets can use)
+                    //step-1 (fetch the session for this user)
+                    HttpSession session=request.getSession();
+                    //step-2 (write the data to session)
+                    session.setAttribute("uid", userid);
+                    
                     String status=rs.getString("status");
                     if(status.equals("disabled")){
                         response.sendRedirect("facultyprofileupdate.jsp");

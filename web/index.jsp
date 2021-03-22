@@ -5,14 +5,17 @@
     //step-2    (search for desired one)
     //searching for 2 cookies (id,pw)
     String v1="",v2="";
-    for(Cookie c:ck){
-        String name=c.getName();
-        if(name.equals("id")){
-            v1=c.getValue();
-        }else if(name.equals("pw")){
-            v2=c.getValue();
+    
+    if(ck!=null)
+        for(Cookie c:ck){
+            String name=c.getName();
+            if(name.equals("id")){
+                v1=c.getValue();
+            }else if(name.equals("pw")){
+                v2=c.getValue();
+            }
         }
-    }
+    
 %>
 
 <html>

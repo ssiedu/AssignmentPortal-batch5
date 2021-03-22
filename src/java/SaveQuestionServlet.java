@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class SaveQuestionServlet extends HttpServlet {
 
@@ -38,10 +39,15 @@ public class SaveQuestionServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        //we will read the userid from session.
+        //step-1 (fetch the session object for this user)
+        HttpSession session=request.getSession();
+        //step-2 (read the userid)
+        String userid=(String) session.getAttribute("uid");
+        
         PrintWriter out = response.getWriter();
         //read-the-request
-        //userid&password&name&address&email&mobile
-        String userid = request.getParameter("userid"); //3
+        //password&name&address&email&mobile
         String question = request.getParameter("question"); //1
         String subject = request.getParameter("subject"); //4
         //2nd parameter is date (current-date)

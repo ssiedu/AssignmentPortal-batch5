@@ -5,9 +5,6 @@
         <form action="FacultyAccountUpdate" method="get">
             <table border="0">
                 <tr>
-                    <td>Userid</td><td><input type="text" name="userid"/></td>
-                </tr>
-                <tr>
                     <td>NewPassword</td><td><input type="password" name="password"/></td>
                 </tr>
                  <tr>

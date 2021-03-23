@@ -36,6 +36,10 @@
         <servlet-name>DisplayQueSubjectWise</servlet-name>
         <servlet-class>DisplayQueSubjectWise</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EndSession</servlet-name>
+        <servlet-class>EndSession</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -64,9 +68,13 @@
         <servlet-name>DisplayQueSubjectWise</servlet-name>
         <url-pattern>/DisplayQueSubjectWise</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EndSession</servlet-name>
+        <url-pattern>/EndSession</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            10
         </session-timeout>
     </session-config>
 </web-app>

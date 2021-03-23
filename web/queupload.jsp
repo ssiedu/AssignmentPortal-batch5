@@ -1,3 +1,10 @@
+<%
+    String userid=(String)session.getAttribute("uid");
+    if(userid==null){
+        response.sendRedirect("index.jsp");
+    }
+%>
+
 <html>
     <body>
         <h3>Question-Upload-Page</h3>

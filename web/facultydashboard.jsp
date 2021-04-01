@@ -2,7 +2,9 @@
     //session.setMaxInactiveInterval(90);
     String userid=(String)session.getAttribute("uid");
     if(userid==null){
-        response.sendRedirect("index.jsp");
+%>        
+<jsp:forward page="index.jsp"/>
+<%
     }
     int val=session.getMaxInactiveInterval();
 %>

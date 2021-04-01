@@ -20,7 +20,7 @@
 
 <html>
     <body>
-        <h3>Assignment Portal</h3>
+        <jsp:include page="header.jsp"/>
         <hr>
         <form action="UserAuthentication" method="get">
             <table border="0">
